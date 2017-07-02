@@ -81,7 +81,7 @@ function showMatches(matches, div){
                     htmlText += '<div>';
                     htmlText += '<p>' + currentMatch.division + ': ' + players.find(x => x.id === currentMatch.playerOne).name  + ' ' +  currentMatch.playerOneScore;
                     htmlText += ' - ' + currentMatch.playerTwoScore + ' ' + players.find(x => x.id === currentMatch.playerTwo).name ;
-                    htmlText += ' (' + currentMatch.table + ' - ' + currentMatch.time;
+                    htmlText += ' (' + currentMatch.table + ' - ' + currentMatch.time + ')';
                     htmlText += '</p>';
                     htmlText += '</div>';
                 }
