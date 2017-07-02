@@ -118,3 +118,13 @@ results.push(matches[match]);
 }
 return results;
 }
+
+function showLeague(){
+
+var selectDivision = document.getElementById('selectDivision');
+var division = selectDivision.options[selectDivision.selectedIndex].value;
+var leagueMatches = [];
+
+
+
+}
