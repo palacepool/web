@@ -1,8 +1,10 @@
 var players;
+var matches;
 
 
 function onLoad(){
    getPlayers();
+   getMatches();
 }
 
 function getMatches(){
@@ -17,9 +19,7 @@ var xhr = new XMLHttpRequest();
           console.log('xhr status check');
             if (xhr.status === 200) {
             console.log('200 ok for matches api')
-              response = JSON.parse(xhr.responseText);
-
-              showMatches(response);
+              matches = JSON.parse(xhr.responseText);
             } else {
 
               console.error(xhr.statusText);
@@ -73,7 +73,7 @@ function showPlayers(players){
 }
 
 
-function showMatches(matches){
+function showMatches(matches, div){
     var htmlText = '';
 
                 for (var match in matches) {
@@ -82,32 +82,41 @@ function showMatches(matches){
                     htmlText +=  ' - ' + matches[match].playerTwoScore + ' ' + players.find(x => x.id === matches[match].playerTwo).name + '</p>';
                     htmlText += '</div>';
                 }
-                var fixturesDiv = document.getElementById('fixtures');
-                fixturesDiv.innerHTML = htmlText;
+
+                div.innerHTML = htmlText;
 }
 
 function showFixtures(){
-    getMatches();
+    var fixturesDiv = document.getElementById('fixtures');
+    var fixtures = getFixturesFrom(matches);
+    showMatches(fixtures, fixturesDiv);
 }
 
-//************************ TABS ***************
-function openTab(evt, tabName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+function showResults(){
+    var resultsDiv = document.getElementById('results');
+    var results = getResultsFrom(matches);
+    showMatches(results, resultsDiv);
 }
+
+function getFixturesFrom(matches){
+var fixtures = [];
+for(var match in matches){
+    if(matches[match].playerOneScore != 5 && matches[match].playerTwoScore != 5){
+fixtures.push(matches[match]);
+    }
+}
+return fixtures;
+}
+
+function getResultsFrom(matches){
+var results = [];
+for(var match in matches){
+    if(matches[match].playerOneScore == 5 || matches[match].playerTwoScore == 5){
+results.push(matches[match]);
+    }
+}
+return results;
+}
+
+
+//get all matches then FE to get Results if one score == 5 or fixtures if not.

@@ -5,6 +5,7 @@ html {
 
 /* Style the tab */
 div.tab {
+text-align: center;
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
