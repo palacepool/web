@@ -77,9 +77,12 @@ function showMatches(matches, div){
     var htmlText = '';
 
                 for (var match in matches) {
+                    currentMatch = matches[match];
                     htmlText += '<div>';
-                    htmlText += '<p>' + players.find(x => x.id === matches[match].playerOne).name  + ' ' +  matches[match].playerOneScore;
-                    htmlText +=  ' - ' + matches[match].playerTwoScore + ' ' + players.find(x => x.id === matches[match].playerTwo).name + '</p>';
+                    htmlText += '<p>' + currentMatch.division + ': ' + players.find(x => x.id === currentMatch.playerOne).name  + ' ' +  currentMatch.playerOneScore;
+                    htmlText += ' - ' + currentMatch.playerTwoScore + ' ' + players.find(x => x.id === currentMatch.playerTwo).name ;
+                    htmlText += ' (' + currentMatch.table + ' - ' + currentMatch.time;
+                    htmlText += '</p>';
                     htmlText += '</div>';
                 }
 
