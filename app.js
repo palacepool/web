@@ -1,17 +1,53 @@
+var players;
+
+
 function onLoad(){
-    var xhr = new XMLHttpRequest();
+    getPlayers();
+    getMatches();
+}
+
+function getMatches(){
+var xhr = new XMLHttpRequest();
     var response;
 
     xhr.onreadystatechange = function (e) {
         console.log('On Load called');
-        console.log('ready state check');
-          if (xhr.readystate === 4) {
+        console.log('ready state check, currently ' + xhr.readyState);
+          if (xhr.readyState === 4) {
+          console.log('ready state check ===4');
+          console.log('xhr status check');
+            if (xhr.status === 200) {
+            console.log('200 ok for matches api')
+              response = JSON.parse(xhr.responseText);
+              showMatches(response);
+            } else {
+
+              console.error(xhr.statusText);
+            }
+          }
+        };
+        xhr.onerror = function (e) {
+          console.error(xhr.statusText);
+        };
+
+    xhr.open("GET", "https://pool-league-api.herokuapp.com/api/match", true);
+    xhr.send(null);
+    }
+
+function getPlayers(){
+var xhr = new XMLHttpRequest();
+    var response;
+
+    xhr.onreadystatechange = function (e) {
+        console.log('On Load called');
+        console.log('ready state check, currently ' + xhr.readyState);
+          if (xhr.readyState === 4) {
           console.log('ready state check ===4');
           console.log('xhr status check');
             if (xhr.status === 200) {
             console.log('200 ok for player api')
-              response = JSON.parse(xhr.responseText);
-              showPlayers(response);
+              players = JSON.parse(xhr.responseText);
+              showPlayers(players);
             } else {
 
               console.error(xhr.statusText);
@@ -24,17 +60,30 @@ function onLoad(){
 
     xhr.open("GET", "https://pool-league-api.herokuapp.com/api/player", true);
     xhr.send(null);
-
-}
+    }
 
 function showPlayers(players){
     var htmlText = '';
 
                 for (var player in players) {
-                    htmlText += '<div class="div-conatiner">';
-                    htmlText += '<p class="p-name"> Name: ' + player.name + '</p>';
+                    htmlText += '<div>';
+                    htmlText += '<p> Name: ' + players[player].name + '</p>';
                     htmlText += '</div>';
                 }
+                var playersDiv = document.getElementById('players');
+                playersDiv.innerHTML = playersDiv.innerHTML + htmlText;
+}
 
-                document.getElementsByTagName("body").append(htmlText);
+
+function showMatches(matches){
+    var htmlText = '';
+
+                for (var match in matches) {
+                    htmlText += '<div>';
+                    htmlText += '<p>' + players.find(x => x.id === matches[match].playerOne).name  + ' ' +  matches[match].playerOneScore;
+                    htmlText +=  ' - ' + matches[match].playerTwoScore + ' ' + players.find(x => x.id === matches[match].playerTwo).name + '</p>';
+                    htmlText += '</div>';
+                }
+                var fixturesDiv = document.getElementById('fixtures');
+                fixturesDiv.innerHTML = fixturesDiv.innerHTML + htmlText;
 }
