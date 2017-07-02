@@ -3,7 +3,6 @@ var players;
 
 function onLoad(){
     getPlayers();
-
 }
 
 function getMatches(){
@@ -47,7 +46,6 @@ var xhr = new XMLHttpRequest();
             if (xhr.status === 200) {
             console.log('200 ok for player api')
               players = JSON.parse(xhr.responseText);
-              getMatches();
             } else {
 
               console.error(xhr.statusText);
@@ -85,5 +83,9 @@ function showMatches(matches){
                     htmlText += '</div>';
                 }
                 var fixturesDiv = document.getElementById('fixtures');
-                fixturesDiv.innerHTML = fixturesDiv.innerHTML + htmlText;
+                fixturesDiv.innerHTML = htmlText;
+}
+
+function showFixtures(){
+    getMatches();
 }
