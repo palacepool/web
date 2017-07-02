@@ -24,6 +24,7 @@ function onLoad(){
 
 
     xhr.open("GET", "https://pool-league-api.herokuapp.com/api/player", true);
+    xhr.send(null);
 
 }
 
