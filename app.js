@@ -2,7 +2,7 @@ function onLoad(){
     var xhr = new XMLHttpRequest();
     var response;
     xhr.open("GET", "https://pool-league-api.herokuapp.com/api/player", true);
-    xhr.onload = function (e) {
+    xhr.onreadystatechange = function (e) {
     console.log('On Load');
       if (xhr.readyState === 4) {
       console.log('ready state check');
