@@ -3,11 +3,15 @@ function onLoad(){
     var response;
     xhr.open("GET", "https://pool-league-api.herokuapp.com/api/player", true);
     xhr.onload = function (e) {
+    console.log('On Load');
       if (xhr.readyState === 4) {
+      console.log('ready state check');
         if (xhr.status === 200) {
+        console.log('200 ok for player api')
           response = JSON.parse(xhr.responseText);
           showPlayers(response);
         } else {
+
           console.error(xhr.statusText);
         }
       }
