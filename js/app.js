@@ -95,18 +95,24 @@ function showResults(){
 
 function getFixturesFrom(matches){
 var fixtures = [];
+var selectFixturesWeek = document.getElementById('selectFixturesWeek');
+var week = selectFixturesWeek.options[selectFixturesWeek.selectedIndex].value;
 for(var match in matches){
-    if(matches[match].playerOneScore != 5 && matches[match].playerTwoScore != 5){
+    if(matches[match].playerOneScore != 5 && matches[match].playerTwoScore != 5 && matches[match].week == week){
 fixtures.push(matches[match]);
     }
 }
 return fixtures;
 }
 
+
+
 function getResultsFrom(matches){
 var results = [];
+var selectResultsWeek = document.getElementById('selectResultsWeek');
+var week = selectResultsWeek.options[selectResultsWeek.selectedIndex].value;
 for(var match in matches){
-    if(matches[match].playerOneScore == 5 || matches[match].playerTwoScore == 5){
+    if((matches[match].playerOneScore == 5 || matches[match].playerTwoScore == 5) && week == matches[match].week){
 results.push(matches[match]);
     }
 }
