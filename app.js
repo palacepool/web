@@ -3,7 +3,7 @@ var players;
 
 function onLoad(){
     getPlayers();
-    getMatches();
+
 }
 
 function getMatches(){
@@ -47,7 +47,7 @@ var xhr = new XMLHttpRequest();
             if (xhr.status === 200) {
             console.log('200 ok for player api')
               players = JSON.parse(xhr.responseText);
-              showPlayers(players);
+              getMatches();
             } else {
 
               console.error(xhr.statusText);
