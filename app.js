@@ -2,7 +2,7 @@ var players;
 
 
 function onLoad(){
-    getPlayers();
+   getPlayers();
 }
 
 function getMatches(){
@@ -18,6 +18,7 @@ var xhr = new XMLHttpRequest();
             if (xhr.status === 200) {
             console.log('200 ok for matches api')
               response = JSON.parse(xhr.responseText);
+
               showMatches(response);
             } else {
 
@@ -47,7 +48,6 @@ var xhr = new XMLHttpRequest();
             console.log('200 ok for player api')
               players = JSON.parse(xhr.responseText);
             } else {
-
               console.error(xhr.statusText);
             }
           }
@@ -88,4 +88,26 @@ function showMatches(matches){
 
 function showFixtures(){
     getMatches();
+}
+
+//************************ TABS ***************
+function openTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
 }

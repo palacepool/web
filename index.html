@@ -11,12 +11,31 @@
 <body onload="onLoad();">
 <h1>Palace Pool League</h1>
 
-<button onclick="showResutls()">Get Results</button>
-<div id="results">
+<div class="tab">
+    <button class="tablinks" onclick="openTab(event, 'tables-tab')">Tables</button>
+    <button class="tablinks" onclick="openTab(event, 'results-tab')">Results</button>
+    <button class="tablinks" onclick="openTab(event, 'fixtures-tab')">Fixtures</button>
 </div>
-<button onclick="showFixtures()">Get Fixtures</button>
-<div id="fixtures">
+
+<div id="tables-tab" class="tabcontent">
+    <h3>Tables</h3>
+    <p>Choose table</p>
 </div>
+
+<div id="results-tab" class="tabcontent">
+    <h3>Results</h3>
+    <button onclick="showResutls()">Get Results</button>
+    <div id="results">
+    </div>
+</div>
+
+<div id="fixtures-tab" class="tabcontent">
+    <h3>Fixtures</h3>
+    <button onclick="showFixtures()">Get Fixtures</button>
+    <div id="fixtures">
+    </div>
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>
