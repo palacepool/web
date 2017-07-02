@@ -1,6 +1,9 @@
 var players;
 var matches;
 
+var matchUrl='https://pool-league-api.herokuapp.com/api/match';
+var playerUrl='https://pool-league-api.herokuapp.com/api/player';
+var httpGet='GET';
 
 function onLoad(){
    getPlayers();
@@ -8,6 +11,14 @@ function onLoad(){
 }
 
 function getMatches(){
+    callApi(httpGet, matchUrl);
+}
+
+function getPlayers(){
+     callApi(httpGet, playerUrl);
+    }
+
+function callApi(method, url, result){
 var xhr = new XMLHttpRequest();
     var response;
 
@@ -19,7 +30,12 @@ var xhr = new XMLHttpRequest();
           console.log('xhr status check');
             if (xhr.status === 200) {
             console.log('200 ok for matches api')
-              matches = JSON.parse(xhr.responseText);
+            if(url == playerUrl){
+            players = JSON.parse(xhr.responseText);
+            }else{
+            matches = JSON.parse(xhr.responseText);
+            }
+
             } else {
 
               console.error(xhr.statusText);
@@ -30,35 +46,10 @@ var xhr = new XMLHttpRequest();
           console.error(xhr.statusText);
         };
 
-    xhr.open("GET", "https://pool-league-api.herokuapp.com/api/match", true);
+    xhr.open(method, url, true);
     xhr.send(null);
-    }
+   }
 
-function getPlayers(){
-var xhr = new XMLHttpRequest();
-    var response;
-
-    xhr.onreadystatechange = function (e) {
-        console.log('On Load called');
-        console.log('ready state check, currently ' + xhr.readyState);
-          if (xhr.readyState === 4) {
-          console.log('ready state check ===4');
-          console.log('xhr status check');
-            if (xhr.status === 200) {
-            console.log('200 ok for player api')
-              players = JSON.parse(xhr.responseText);
-            } else {
-              console.error(xhr.statusText);
-            }
-          }
-        };
-        xhr.onerror = function (e) {
-          console.error(xhr.statusText);
-        };
-
-    xhr.open("GET", "https://pool-league-api.herokuapp.com/api/player", true);
-    xhr.send(null);
-    }
 
 function showPlayers(players){
     var htmlText = '';
@@ -99,6 +90,7 @@ function showResults(){
     var resultsDiv = document.getElementById('results');
     var results = getResultsFrom(matches);
     showMatches(results, resultsDiv);
+
 }
 
 function getFixturesFrom(matches){
@@ -120,6 +112,3 @@ results.push(matches[match]);
 }
 return results;
 }
-
-
-//get all matches then FE to get Results if one score == 5 or fixtures if not.
